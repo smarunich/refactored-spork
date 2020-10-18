@@ -140,7 +140,7 @@
     kind: Namespace
     name: dev1
     kubeconfig: /etc/kubernetes/admin.conf
-  delegate_to: localhost
+  delegate_to: inventory_hostname
 
 # Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
