@@ -65,4 +65,5 @@
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label node {{ awslocalhostname }} lab_name={{ inventory_hostname }}"
     delegate_to: "{{ k8s_master }}"
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label node {{ awslocalhostname }} node-role.kubernetes.io/worker="
+    delegate_to: "{{ k8s_master }}"
   when: kubeadm_config.rc > 0
