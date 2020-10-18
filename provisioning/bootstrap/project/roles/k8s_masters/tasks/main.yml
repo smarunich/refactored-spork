@@ -139,7 +139,7 @@
     api_version: v1
     kind: Namespace
     name: dev1
-    remote_src: yes
+    validate_certs: false
     kubeconfig: /etc/kubernetes/admin.conf
 
 # Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
