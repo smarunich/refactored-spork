@@ -133,18 +133,15 @@
 
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-- copy:
-    remote_src: true
-    src: /etc/kubernetes/admin.conf
-    dest: /home/ubuntu/admin-{{ inventory_hostname }}.conf
+# - name: Create Namespace dev1
+#   community.kubernetes.k8s:
+#     api_version: v1
+#     kind: Namespace
+#     name: dev1
+#     state: present
+#     kubeconfig: /etc/kubernetes/admin.conf
 
-- name: Create Namespace dev1
-  community.kubernetes.k8s:
-    api_version: v1
-    kind: Namespace
-    name: dev1
-    state: present
-    kubeconfig: /home/ubuntu/admin-{{ inventory_hostname }}.conf
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf create ns dev1"
 
 # Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
@@ -155,12 +152,6 @@
     dest: "/home/ubuntu/{{ item }}"
   loop:
     - bookinfo-ingress.yaml
-- name: Apply manifest by reading the definition from a local file
-  community.kubernetes.k8s:
-    state: present
-    src: "/home/ubuntu/{{ item }}"
-    namespace: dev1
-    remote_src: yes
-    kubeconfig: /etc/kubernetes/admin.conf
+- shell: kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev apply -f bookinfo-ingress.yaml
   loop:
     - bookinfo-ingress.yaml
