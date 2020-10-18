@@ -133,13 +133,17 @@
 
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
+- copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/ubuntu/admin-{{ inventory_hostname }}.conf
+
 - name: Create Namespace dev1
   community.kubernetes.k8s:
     api_version: v1
     kind: Namespace
     name: dev1
     state: present
-    kubeconfig: /home/ubuntu/.kube/config
+    kubeconfig: /home/ubuntu/admin-{{ inventory_hostname }}.conf
 
 # Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
