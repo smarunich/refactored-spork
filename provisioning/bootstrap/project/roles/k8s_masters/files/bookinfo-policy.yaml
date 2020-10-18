@@ -21,6 +21,9 @@ spec:
   - ports:
     - port: 9080
     from:
+    - namespaceSelector:
+        matchLabels:
+          app: ingress
     - podSelector:           # chooses pods with type=monitoring
         matchLabels:
           app: envoy
