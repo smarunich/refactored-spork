@@ -127,9 +127,17 @@
 
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf create ns dev1" 
-# https://istio.io/latest/docs/examples/bookinfo/
+- name: Create Namespace dev1
+  community.kubernetes.k8s:
+    state: present 
+    api_version: v1
+    kind: Namespace
+    namespace: dev1
+
+# Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
+
+# Create a secure Ingress for the bookinfo productpage service
 - template:
     src: "{{ item }}.j2"
     dest: "/home/ubuntu/{{ item }}"
