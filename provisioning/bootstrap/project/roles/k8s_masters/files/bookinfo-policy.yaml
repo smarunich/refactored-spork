@@ -1,0 +1,10 @@
+---
+apiVersion: projectcalico.org/v3
+kind: NetworkPolicy
+metadata:
+  name: dev1-default-deny
+  namespace: dev1
+spec:
+  podSelector:
+    matchLabels: {}
+---
