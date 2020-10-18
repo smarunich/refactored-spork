@@ -33,11 +33,6 @@
         - awscli
         - httpie
         - httping
-  - pip:
-      name:
-        - openshift
-        - kubernetes
-      extra_args: --upgrade
   - get_url:
       url: https://storage.googleapis.com/kubernetes-the-hard-way/cfssl/linux/cfssl
       dest: /usr/local/bin/cfssl
