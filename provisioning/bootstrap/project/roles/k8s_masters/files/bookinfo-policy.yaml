@@ -1,5 +1,5 @@
 ---
-apiVersion: projectcalico.org/v3
+apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: dev1-default-deny
