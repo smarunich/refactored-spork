@@ -120,8 +120,8 @@
     register: redis_kubeadm_hash
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label node {{ awslocalhostname }} lab_name={{ inventory_hostname }}"
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calico.yaml"
-  - shell: "kubectl apply -f https://docs.projectcalico.org/manifests/calicoctl-etcd.yaml"
-  - shell: "kubectl apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
+  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl-etcd.yaml"
+  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
   when: kubeadm_config.rc > 0
   
 
