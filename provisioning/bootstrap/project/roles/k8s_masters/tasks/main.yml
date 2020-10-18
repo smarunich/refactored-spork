@@ -136,6 +136,7 @@
 - copy:
     src: /etc/kubernetes/admin.conf
     dest: /home/ubuntu/admin-{{ inventory_hostname }}.conf
+  delegate_to: {{ inventory_hostname }}
 
 - name: Create Namespace dev1
   community.kubernetes.k8s:
