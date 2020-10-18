@@ -21,7 +21,7 @@ spec:
   - host: bookinfo.app.{{ inventory_hostname | regex_replace('master1.','') }}
     http:
       paths:
-      - path: /productpage
+      - path: /
         backend:
           serviceName: productpage
           servicePort: 9080
