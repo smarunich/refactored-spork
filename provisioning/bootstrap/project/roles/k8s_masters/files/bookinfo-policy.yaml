@@ -18,6 +18,10 @@ spec:
     matchLabels:
       app: productpage
   ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: envoy
   - ports:
     - port: 9080
     from: []
