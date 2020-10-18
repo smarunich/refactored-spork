@@ -125,22 +125,21 @@
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
   when: kubeadm_config.rc > 0
 
+- shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf create ns dev1" 
 # https://istio.io/latest/docs/examples/bookinfo/
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
-- shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-
 - template:
     src: "{{ item }}.j2"
     dest: "/home/ubuntu/{{ item }}"
   loop:
     - bookinfo-ingress.yaml
-
 - name: Apply manifest by reading the definition from a local file
   community.kubernetes.k8s:
     state: present
     src: "/home/ubuntu/{{ item }}"
-    namespace: default
+    namespace: dev1
     kubeconfig: /etc/kubernetes/admin.conf
   loop:
     - bookinfo-ingress.yaml
