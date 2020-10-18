@@ -5,6 +5,34 @@ metadata:
   name: dev1-default-deny
   namespace: dev1
 spec:
-  podSelector:
-    matchLabels: {}
+  podSelector: {}
+  ingress: []
 ---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: bookinfo-productpage
+  namespace: dev1
+spec:
+  podSelector:
+    matchLabels:
+      app: productpage
+  ingress:
+  - ports:
+    - port: 9080
+    from: []
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: bookinfo-reviews
+  namespace: dev1
+spec:
+  podSelector:
+    matchLabels:
+      app: reviews
+  ingress:
+  - from:
+      - podSelector:
+          matchLabels:
+            app: productpage
