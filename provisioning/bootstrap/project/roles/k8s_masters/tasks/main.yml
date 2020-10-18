@@ -139,7 +139,7 @@
     kind: Namespace
     name: dev1
     state: present
-    kubeconfig: /etc/kubernetes/admin.conf
+    kubeconfig: /home/ubuntu/.kube/config
 
 # Install app from https://istio.io/latest/docs/examples/bookinfo/ into dev1 namespace
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f https://raw.githubusercontent.com/istio/istio/release-1.7/samples/bookinfo/platform/kube/bookinfo.yaml"
