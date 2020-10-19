@@ -92,27 +92,16 @@ metadata:
 spec:
   policyTypes:
   - Egress
-  podSelector:
-    - namespaceSelector:
-      matchLabels:
-        app: bookinfo
-        owner: dev1
+  podSelector: {}
   egress:
   - to:
-    - namespaceSelector:
+    - podSelector:
         matchLabels:
-          app: bookinfo
-          owner: dev1
-    - namespaceSelector:
-        matchLabels:
-          app: ingress
+          app: productpage
     - podSelector:           
         matchLabels:
           app: envoy
-    - namespaceSelector:
-        matchLabels:
-          name: kube-system
-    ports:
+  - ports:
     - port: 53
       protocol: UDP
     - port: 53
