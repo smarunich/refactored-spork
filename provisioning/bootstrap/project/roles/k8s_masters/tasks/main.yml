@@ -126,13 +126,18 @@
     register: redis_kubeadm_hash
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label node {{ awslocalhostname }} lab_name={{ inventory_hostname }}"
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calico.yaml"
-  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl-etcd.yaml"
-  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
-  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
-  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
   when: kubeadm_config.rc > 0
 
+- name: Pause for cluster to finish the initialization
+  pause:
+    minutes: 1
+
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl-etcd.yaml"
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
 
 # - name: Create Namespace dev1
 #   community.kubernetes.k8s:
@@ -149,12 +154,6 @@
 
 # Compile manifest templates
 - template:
-    src: "{{ item }}.j2"
-    dest: "/home/ubuntu/{{ item }}"
-  loop:
-    - bookinfo-ingress.yaml
-
-- copy:
     src: "{{ item }}.j2"
     dest: "/home/ubuntu/{{ item }}"
   loop:
