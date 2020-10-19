@@ -24,7 +24,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           app: ingress
-    - podSelector:           
+      podSelector:           
         matchLabels:
           app: envoy
 ---
