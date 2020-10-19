@@ -133,6 +133,10 @@
     minutes: 2
 
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
+- lineinfile:
+    path: /home/ubuntu/.bashrc
+    line: 'alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"'
 
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
