@@ -154,7 +154,23 @@
   loop:
     - bookinfo-ingress.yaml
 
+- copy:
+    src: "{{ item }}.j2"
+    dest: "/home/ubuntu/{{ item }}"
+  loop:
+    - bookinfo-ingress.yaml
+
+- copy:
+    src: "{{ item }}"
+    dest: "/home/ubuntu/{{ item }}"
+    mode: '0644'
+  with_items:
+    - bookinfo-policy.yaml
+
 # Apply manifest templates
 - shell: kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f /home/ubuntu/{{ item }}
   loop:
     - bookinfo-ingress.yaml
+    - bookinfo-policy.yaml
+
+
