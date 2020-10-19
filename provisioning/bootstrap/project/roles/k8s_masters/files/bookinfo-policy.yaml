@@ -84,28 +84,27 @@ spec:
             app: reviews
             version: v3
 ---
-apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
 metadata:
-  name: default-deny-egress
+  name: bookinfo-egress
   namespace: dev1
 spec:
+  policyTypes:
+  - Egress
   podSelector: {}
-  policyTypes:
-  - Egress
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: dns-egress
-  namespace: dev1
-spec:
-  podSelector:
-    matchLabels: {}
-  policyTypes:
-  - Egress
   egress:
   - to:
+    - namespaceSelector:
+        matchLabels:
+          app: bookinfo
+          owner: dev1
+    - namespaceSelector:
+        matchLabels:
+          app: ingress
+    - podSelector:           
+        matchLabels:
+          app: envoy
     - namespaceSelector:
         matchLabels:
           name: kube-system
@@ -114,37 +113,3 @@ spec:
       protocol: UDP
     - port: 53
       protocol: TCP
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: bookinfo-productpage-egress
-  namespace: dev1
-spec:
-  podSelector:
-    matchLabels: {}
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - namespaceSelector:
-        matchLabels:
-          app: ingress
-    - podSelector:           
-        matchLabels:
-          app: envoy
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: bookinfo-egress-intra
-  namespace: dev1
-spec:
-  podSelector:
-    matchLabels: {}
-  policyTypes:
-  - Egress
-  egress:
-  - to:
-    - podSelector:
-        matchLabels: {}
