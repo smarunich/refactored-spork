@@ -20,13 +20,13 @@ spec:
   ingress:
   - ports:
     - port: 9080
-      from:
-      - namespaceSelector:
-          matchLabels:
-            app: ingress
-        podSelector:           
-          matchLabels:
-            app: envoy
+    from:
+    - namespaceSelector:
+        matchLabels:
+          app: ingress
+      podSelector:           
+        matchLabels:
+          app: envoy
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -40,10 +40,10 @@ spec:
   ingress:
   - ports:
     - port: 9080
-      from:
-        - podSelector:
-            matchLabels:
-              app: productpage
+    from:
+      - podSelector:
+          matchLabels:
+            app: productpage
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -57,10 +57,10 @@ spec:
   ingress:
   - ports:
     - port: 9080
-      from:
-        - podSelector:
-            matchLabels:
-              app: productpage
+    from:
+      - podSelector:
+          matchLabels:
+            app: productpage
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
@@ -74,15 +74,15 @@ spec:
   ingress:
   - ports:
     - port: 9080
-      from:
-        - podSelector:
-            matchLabels:
-              app: reviews
-              version: v2
-        - podSelector:
-            matchLabels:
-              app: reviews
-              version: v3
+    from:
+      - podSelector:
+          matchLabels:
+            app: reviews
+            version: v2
+      - podSelector:
+          matchLabels:
+            app: reviews
+            version: v3
 ---
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
