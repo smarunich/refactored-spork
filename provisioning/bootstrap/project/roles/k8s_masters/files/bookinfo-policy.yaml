@@ -92,7 +92,11 @@ metadata:
 spec:
   policyTypes:
   - Egress
-  podSelector: {}
+  podSelector:
+    - namespaceSelector:
+      matchLabels:
+        app: bookinfo
+        owner: dev1
   egress:
   - to:
     - namespaceSelector:
