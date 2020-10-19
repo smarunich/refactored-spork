@@ -132,14 +132,22 @@
   pause:
     minutes: 2
 
-- shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
-- lineinfile:
-    path: /home/ubuntu/.bashrc
-    line: 'alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"'
-
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
+
+- shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
+
+#- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
+#- lineinfile:
+#    path: /home/ubuntu/.bashrc
+#    line: 'alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"'
+
+- lineinfile:
+     path: /home/ubuntu/.bashrc
+     line: "{{ item.line }}"
+  with_items:
+  - "export CALICO_KUBECONFIG=~/.kube/config"
+  - "export CALICO_DATASTORE_TYPE=kubernetes"
 
 # - name: Create Namespace dev1
 #   community.kubernetes.k8s:
