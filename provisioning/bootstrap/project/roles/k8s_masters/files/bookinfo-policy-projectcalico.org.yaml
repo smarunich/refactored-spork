@@ -100,7 +100,6 @@ spec:
   - action: Allow
     destination:
       namespaceSelector: owner == 'dev1'
-      selector: {}
     source: {}
   - action: Allow
     destination:
@@ -119,6 +118,5 @@ spec:
       - 53
     protocol: UDP
     source: {}
-  selector: {}
   types:
   - Egress
