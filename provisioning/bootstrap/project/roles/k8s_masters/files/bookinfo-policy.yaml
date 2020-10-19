@@ -146,9 +146,5 @@ spec:
   - Egress
   egress:
   - to:
-    - namespaceSelector:
-        matchLabels:
-          app: bookinfo
-          owner: dev1
     - podSelector:
         matchLabels: {}
