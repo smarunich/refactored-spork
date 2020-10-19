@@ -130,12 +130,10 @@
 
 - name: Pause for cluster to finish the initialization
   pause:
-    minutes: 1
+    minutes: 2
 
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl-etcd.yaml"
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
 - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
 
