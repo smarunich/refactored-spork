@@ -95,10 +95,14 @@ spec:
   podSelector: {}
   egress:
   - to:
-    - podSelector:
+    - namespaceSelector:
         matchLabels:
-          app: productpage
-    - podSelector:           
+          owner: dev1
+      podSelector: {}
+    - namespaceSelector:
+        matchLabels:
+          app: ingress
+      podSelector:           
         matchLabels:
           app: envoy
   - ports:
