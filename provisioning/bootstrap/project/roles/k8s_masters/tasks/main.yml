@@ -168,12 +168,12 @@
     dest: "/home/ubuntu/{{ item }}"
     mode: '0644'
   with_items:
-    - bookinfo-policy.yaml
+    - bookinfo-policy-networking.k8s.io.yaml
 
 # Apply manifest templates
 - shell: kubectl --kubeconfig /etc/kubernetes/admin.conf -n dev1 apply -f /home/ubuntu/{{ item }}
   loop:
     - bookinfo-ingress.yaml
-    - bookinfo-policy.yaml
+    - bookinfo-policy-networking.k8s.io.yaml
 
 
