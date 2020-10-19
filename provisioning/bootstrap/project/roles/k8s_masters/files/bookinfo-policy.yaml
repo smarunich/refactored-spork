@@ -148,3 +148,12 @@ spec:
         matchLabels:
           app: bookinfo
           owner: dev1
+    - podSelector:
+        matchLabels:
+          app: productpage
+    - podSelector:
+        matchLabels:
+          app: details
+    - podSelector:
+        matchLabels:
+          app: reviews
