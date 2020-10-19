@@ -126,21 +126,20 @@
     register: redis_kubeadm_hash
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label node {{ awslocalhostname }} lab_name={{ inventory_hostname }}"
   - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calico.yaml"
+  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
+  - shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
   when: kubeadm_config.rc > 0
 
 - name: Pause for cluster to finish the initialization
   pause:
     minutes: 2
 
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://projectcontour.io/quickstart/contour.yaml"
-- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf label namespace projectcontour app=ingress"
-
 - shell: curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-#- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
-#- lineinfile:
-#    path: /home/ubuntu/.bashrc
-#    line: 'alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"'
+- get_url:
+    url: https://github.com/projectcalico/calicoctl/releases/download/v3.16.3/calicoctl
+    dest: /usr/local/bin/calicoctl
+    mode: '0755'
 
 - lineinfile:
      path: /home/ubuntu/.bashrc
@@ -148,6 +147,17 @@
   with_items:
   - "export CALICO_KUBECONFIG=~/.kube/config"
   - "export CALICO_DATASTORE_TYPE=kubernetes"
+
+
+
+
+
+#- shell: "kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f https://docs.projectcalico.org/manifests/calicoctl.yaml"
+#- lineinfile:
+#    path: /home/ubuntu/.bashrc
+#    line: 'alias calicoctl="kubectl exec -i -n kube-system calicoctl -- /calicoctl"'
+
+
 
 # - name: Create Namespace dev1
 #   community.kubernetes.k8s:
