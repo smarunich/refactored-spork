@@ -24,7 +24,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           app: ingress
-    - podSelector:           # chooses pods with type=monitoring
+    - podSelector:           
         matchLabels:
           app: envoy
 ---
@@ -109,7 +109,7 @@ spec:
     - namespaceSelector:
         matchLabels:
           app: ingress
-    - podSelector:           # chooses pods with type=monitoring
+    - podSelector:           
         matchLabels:
           app: envoy
 ---
