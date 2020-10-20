@@ -5,7 +5,7 @@ The repository is terraform plan that includes:
 1. Build out of self-managed Kubernetes cluster on top of AWS with Project Calico as CNI and Project Contour as Ingress Controller
 2. Install of bookinfo app [https://istio.io/latest/docs/examples/bookinfo/]
 3. Securing bookinfo app leveraging Project Calico Network Policies
-4. Configuration management of components performed by Ansible
+4. Configuration management is performed by Ansible
 # Prerequisites
 1. Terraform >= 0.12.x
 2. Ansible >= 2.9.x
