@@ -11,9 +11,9 @@ The repository is terraform plan that includes:
 2. Ansible >= 2.9.x
 3. AWS
 # Topology
-![Dev1 Bookinfo Application - Infrastructure View](DEMO_ dev1 bookinfo application - Infrastructure View.png)
-![Dev1 Bookinfo Application - Application View](DEMO_ dev1 bookinfo application - Application View.png)
-![Dev1 Bookinfo Application - Application + Policy View](DEMO_ dev1 bookinfo application - Policy View.png)
+![Dev1 Bookinfo Application - Infrastructure View](DEMO_dev1_bookinfo_infra.png)
+![Dev1 Bookinfo Application - Application View](DEMO_dev1_bookinfo_app.png)
+![Dev1 Bookinfo Application - Application + Policy View](DEMO_dev1_bookinfo_app_policy.png)
 # HowTo
  1. Clone the repository
 ```
@@ -76,7 +76,7 @@ dev1        knp.default.default-deny-ingress
 ```
 
 # FAQ
-1. It can be the case when the provision will take a long time and the worker nodes will not be associated with the cluster. Run the following command from the jumpbox to re-trigger nodes join:
+1. It can be the case when the provision process can take a longer time and the worker nodes will not be associated with the cluster. Run the following command from the jumpbox to re-trigger nodes to join:
 ```
 ubuntu@jumpbox:~$ ansible-playbook /opt/bootstrap/project/bootstrap.yml --limit servers
 ```
