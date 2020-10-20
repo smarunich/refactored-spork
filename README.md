@@ -1,5 +1,5 @@
 # refactored-spork
-Securing Dev1 Bookinfo App leveraging Calico
+Securing Dev1 Bookinfo App leveraging Project Calico
 # Overview
 The repository is terraform plan that includes:
 1. Build out of self-managed Kubernetes cluster on top of AWS with Project Calico as CNI and Project Contour as Ingress Controller
